@@ -6,8 +6,7 @@ const username = document.querySelector('input[type="text"]'),
       textarea = document.querySelector('textarea'),
       checkboxes = document.querySelectorAll('input[type="checkbox"]'),
       form = document.querySelector('form'),
-      baseUrl = '../../images/',
-      charactersAllowed = 140,
+      baseUrl = 'images/',
       paragraphTextareaMessage = document.querySelector('p.countermessage');
 
 
@@ -33,6 +32,7 @@ form.addEventListener('submit', function(ev) {
 
   let image = document.createElement('IMG');
   let newPath = pictureSource.replace(`C:\\fakepath\\`, baseUrl);
+  console.log(newPath);
   image.src = newPath;
 
   let article = document.createElement('ARTICLE');
@@ -55,10 +55,8 @@ form.addEventListener('submit', function(ev) {
   }
 
   let languagesString = programmingSkills.join(', ');
-
   let languagesParagraph = document.createElement('P');
   languagesParagraph.innerText = `The programming skills of ${userNameValue} are: ${languagesString}`;
-
 
   section.appendChild(h3);
   section.appendChild(birthdayParagraph);
@@ -73,40 +71,4 @@ form.addEventListener('submit', function(ev) {
     document.body.removeChild(event.currentTarget.parentElement);
   })
 
-})
-
-username.addEventListener('invalid', function(ev) {
-  ev.preventDefault();
-  ev.currentTarget.setCustomValidity('Were you born without a name?');
-  ev.currentTarget.nextElementSibling.innerText = ev.currentTarget.validationMessage;
-  ev.currentTarget.setCustomValidity('');
-})
-
-username.addEventListener('keyup', function(ev) {
-  ev.currentTarget.checkValidity();
-})
-
-birthdayDate.addEventListener('invalid', function(ev) {
-  ev.preventDefault();
-  ev.currentTarget.setCustomValidity('Go and drink your milk kiddy!');
-  ev.currentTarget.nextElementSibling.innerText = ev.currentTarget.validationMessage;
-  birthdayDate.focus();
-  ev.currentTarget.setCustomValidity('');
-})
-
-birthdayDate.addEventListener('change', function(ev) {
-  ev.currentTarget.checkValidity();
-})
-
-textarea.addEventListener('keyup', function(ev) {
-  ev.currentTarget.checkValidity();
-  let charactersRemained = charactersAllowed - textarea.value.length;
-  paragraphTextareaMessage.innerText = `You have ${charactersRemained} left!`;
-  if (charactersRemained === 0) {
-    paragraphTextareaMessage.innerText = `End of story`;
-    paragraphTextareaMessage.style.color = 'red';
-  } else {
-    paragraphTextareaMessage.style.color = 'blue';
-  }
-  ev.currentTarget.checkValidity();
 })
